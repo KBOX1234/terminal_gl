@@ -5,6 +5,7 @@ char* window_buffer;
 int window_size_x, window_size_y;
 
 //init
+
 void init_window(char* name);
 
 void draw_char(char c, int x, int y, char color);

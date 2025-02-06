@@ -69,7 +69,7 @@
 #define ANSI_HIDDEN       "\x1b[8m"
 
 
-const char* color_table[256] = {
+char* color_table[256] = {
     // Foreground: 30-37 (standard) and 90-97 (bright), Background: 40-47 (standard) and 100-107 (bright)
     // Table for 16 foreground × 16 background combinations
     [0x00] = "\x1b[30m\x1b[40m", [0x01] = "\x1b[30m\x1b[41m", [0x02] = "\x1b[30m\x1b[42m", [0x03] = "\x1b[30m\x1b[43m",
@@ -157,7 +157,7 @@ const char* color_table[256] = {
 
 #endif // ANSI_COLORS_H
 
-char* buffer_expanded = NULL;
+char* buffer_expanded;
 
 size_t buffer_expanded_size;
 
@@ -177,64 +177,48 @@ void get_terminal_size(int *rows, int *cols) {
     *cols = ws.ws_col;
 }
 
+void backend_init(){
+    int window_x;
+    int window_y;
+    get_terminal_size(&window_y, &window_x);
+    buffer_expanded_size = window_y*window_x;
+    buffer_expanded_size = buffer_expanded_size*10;
+    buffer_expanded = malloc(buffer_expanded_size);
+}
+
+
+char* refrence_color(int i){
+    return color_table[i];
+}
+
 void draw_buffer(char* buffer, int x, int y, char* color_data) {
-    static char* buffer_expanded = NULL; // Static to persist memory across calls
-    static int buffer_size = 0; // To track the allocated buffer size
+    //memset(buffer_expanded, ' ', strlen(buffer_expanded));
     int x_inc = 0;
     int y_inc = 0;
-    int addit = 0; // Initialize addit to 0
-    int color_inc = 0;
 
-    // Ensure buffer_expanded is only allocated once
-    if (buffer_expanded == NULL) {
-        buffer_size = x * y * 8 + x; // Account for possible additional bytes, like color codes and newlines
-        buffer_expanded = calloc(buffer_size, sizeof(char)); // Adjust allocation size as needed
-        if (buffer_expanded == NULL) {
-            // Handle memory allocation failure
-            write(STDOUT_FILENO, "Memory allocation failed\n", 24);
-            return;
+    int color_and_buffer_inc = 0;
+    int buffer_expanded_inc = 0;
+
+    while(y_inc < y){
+        while(x_inc < x){
+            char* tmp_color = refrence_color(color_data[color_and_buffer_inc]);
+            memcpy(&buffer_expanded[buffer_expanded_inc], tmp_color, strlen(tmp_color));
+            buffer_expanded_inc = buffer_expanded_inc + strlen(tmp_color);
+            buffer_expanded[buffer_expanded_inc] = buffer[color_and_buffer_inc];
+
+            buffer_expanded_inc++;
+            color_and_buffer_inc++;
+            x_inc++;
         }
+        buffer_expanded[buffer_expanded_inc] = '\n';
+        buffer_expanded_inc++;
+
+        x_inc = 0;
+        y_inc++;
     }
-
-    // Clear screen once before drawing
-    write(STDOUT_FILENO, CLEAR_AND_CURSOR_RESET, 7);
-
-    // Main drawing loop
-    while (x_inc < y) {
-        while (y_inc < x) {
-            // Check if the color_data and buffer are valid
-            if (color_inc < x * y) {
-                // Retrieve the color code from color_data
-                int color_code = color_data[color_inc];
-
-                // Get the corresponding ANSI escape code from color_table
-                char* color_code_str = color_table[color_code];
-
-                // Write the color code string (ANSI escape code) to the buffer_expanded
-                memcpy(&buffer_expanded[addit], color_code_str, strlen(color_code_str));
-                addit += strlen(color_code_str); // Update addit position
-
-                // Add the character from buffer to buffer_expanded
-                buffer_expanded[addit] = buffer[color_inc];
-                addit++; // Increment for the next character
-
-                color_inc++; // Move to the next color in color_data
-            }
-            y_inc++; // Move to the next column
-        }
-
-        // After finishing one row, reset y_inc and add newline
-        y_inc = 0;
-        buffer_expanded[addit] = '\n'; // Add newline after each row
-        addit++; // Move addit forward to the next position
-        x_inc++; // Move to the next row
-    }
-    
-    // Write the entire expanded buffer to the terminal
-    write(STDOUT_FILENO, buffer_expanded, addit); // Use 'addit' as the correct size of the expanded buffer
-
-    // Sleep to control the drawing speed (optional)
+    write(STD_OUT, buffer_expanded, buffer_expanded_inc);
     sleep(1);
+
 }
 
 

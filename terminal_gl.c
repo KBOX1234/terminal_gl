@@ -1,6 +1,7 @@
 char* color_data;
 
 void init_window(char* name){
+    backend_init();
     get_terminal_size(&window_size_y, &window_size_x);
 
     window_buffer = allocate_memory(window_size_x*window_size_y);
