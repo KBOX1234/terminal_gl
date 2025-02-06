@@ -29,3 +29,29 @@ void fill_screen(char chare){
 void draw_char(char c, int x, int y){
     window_buffer[window_size_x*y+x] = c;
 }
+
+void draw_text(const char* text, int x, int y){
+    int inx = x;
+    int charinc = 0;
+    int max = x + (x - window_size_x);
+    
+    while(text[charinc] != '\0'){
+        draw_char(text[charinc], inx, y);
+        inx++;
+        charinc++;
+    }
+}
+
+void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y){
+    int pointer_x = pos_x;
+    int pointer_y = pos_y;
+
+    while(pointer_x < pos_x + size_x){
+        while(pointer_y < pos_y + size_y){
+            draw_char(fill, pointer_x, pointer_y);
+            pointer_y++;
+        }
+        pointer_y = pos_y;
+        pointer_x++;
+    }
+}

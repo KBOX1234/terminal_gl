@@ -21,30 +21,6 @@
 // Reset color
 #define RESET_COLOR "\033[0m"
 
-
-// Standard Colors (0-15) - Modified
-#define DARK_BLACK "\033[30m"  // Black
-#define DARK_RED "\033[31m"    // Red
-#define DARK_GREEN "\033[32m"  // Green
-#define DARK_YELLOW "\033[33m" // Yellow
-#define DARK_BLUE "\033[34m"   // Blue
-#define DARK_MAGENTA "\033[35m" // Magenta
-#define DARK_CYAN "\033[36m"    // Cyan
-#define DARK_WHITE "\033[37m"   // White
-#define LIGHT_BLACK "\033[90m"  // Bright Black
-#define LIGHT_RED "\033[91m"    // Bright Red
-#define LIGHT_GREEN "\033[92m"  // Bright Green
-#define LIGHT_YELLOW "\033[93m" // Bright Yellow
-#define LIGHT_BLUE "\033[94m"   // Bright Blue
-#define LIGHT_MAGENTA "\033[95m" // Bright Magenta
-#define LIGHT_CYAN "\033[96m"    // Bright Cyan
-#define LIGHT_WHITE "\033[97m"   // Bright White
-
-// Reset color
-#define RESET_COLOR_MODIFIED "\033[0m"
-
-
-
 //buffer to write to
 char* window_buffer;
 int window_size_x, window_size_y;
@@ -57,5 +33,9 @@ void draw_char(char c, int x, int y);
 void update();
 
 void fill_screen(char chare);
+
+void draw_text(const char* text, int x, int y);
+
+void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y);
 
 #include "terminal_gl.c"
