@@ -11,14 +11,28 @@ int main(){
     init_window("test program");
 
     int xi = 2;
+    int yi = 2;
     while(1){
-        fill_screen('*', 0);
+        fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
         
-        draw_rectangle('#', xi, 30, 6, 6, 0x75);
-        xi++;
+        draw_rectangle('#', xi, yi, 6, 6, 0x75);
+        scan_input();
+
+        if(is_key_pressed('a') == 1){
+            xi--;
+        }
+        if(is_key_pressed('d') == 1){
+            xi++;
+        }
+        if(is_key_pressed('w') == 1){
+            yi--;
+        }
+        if(is_key_pressed('s') == 1){
+            yi++;
+        }
 
         update();
     }

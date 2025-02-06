@@ -58,3 +58,30 @@ void hide_cursor(){
 void backend_init(){
     return;
 }
+
+#define KEYBOARD_SIZE 256
+
+unsigned char key_bord[KEYBOARD_SIZE] = {0};  // Array to hold key states
+
+void release_all_keys() {
+    for (int i = 0; i < KEYBOARD_SIZE; i++) {
+        key_bord[i] = 0;  // Reset all keys
+    }
+}
+
+void scan_input() {
+    release_all_keys();
+    for (int i = 0; i < KEYBOARD_SIZE; i++) {
+        SHORT keyState = GetAsyncKeyState(i);  // Get the key state for the key
+        if (keyState & 0x8000) {  // Check if the key is currently pressed
+            key_bord[i] = 1;  // Mark key as pressed
+        }
+    }
+}
+
+char is_key_pressed(char key) {
+    if (key >= 0 && key < KEYBOARD_SIZE) {
+        return key_bord[(unsigned char)key];  // Return the state of the requested key
+    }
+    return 0;  // If the key is out of range, return 0 (not pressed)
+}
