@@ -22,5 +22,5 @@ int main(){
         update();
     }
 
-    sys_exit(0);
+    return 0;
 }

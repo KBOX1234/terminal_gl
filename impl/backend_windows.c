@@ -3,25 +3,26 @@
 void *allocate_memory(long size){
     return malloc(size);
 }
-void draw_buffer(char* buffer, int x, int y, char* color_data){
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    char inc = 0;
-    char x_inc = 0;
-    char y_inc = 0;
 
-    while(y_inc < y){
-        while(x_inc < x){
-            SetConsoleTextAttribute(hConsole, color_data[inc]);
-            DWORD written;
-            WriteConsole(hConsole, &buffer[inc], lstrlenA(text), &written, NULL);
-            x_inc++;
-            inc++;
-        }
-        WriteConsole(hConsole, '\n', lstrlenA(text), &written, NULL);
-        x_inc = 0;
-        y_inc++;
-        
+void draw_buffer(char* buffer, int x, int y, char* color_data) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD bufferSize = {x, y};  // Console buffer size
+    COORD zeroCoord = {0, 0};   // Top-left start
+    SMALL_RECT writeRegion = {0, 0, x - 1, y - 1};  // Where to write
+    
+    CHAR_INFO* charInfo = (CHAR_INFO*)malloc(x * y * sizeof(CHAR_INFO));
+    if (!charInfo) return;
+
+    // Fill the CHAR_INFO buffer
+    for (int i = 0; i < x * y; i++) {
+        charInfo[i].Char.AsciiChar = buffer[i];     // Character
+        charInfo[i].Attributes = (WORD)color_data[i]; // Foreground + Background
     }
+
+    // Write the full buffer at once
+    WriteConsoleOutput(hConsole, charInfo, bufferSize, zeroCoord, &writeRegion);
+    
+    free(charInfo);  // Cleanup
 }
 
 void get_terminal_size(int *rows, int *cols) {
@@ -42,7 +43,7 @@ void set_process_name(char *name){
 }
 
 void clear(){
-    system("cls");
+    //system("clear");
 }
 
 void hide_cursor(){
@@ -54,4 +55,6 @@ void hide_cursor(){
     SetConsoleCursorInfo(hConsole, &cursorInfo);
 }
 
-void backend_init();
+void backend_init(){
+    return;
+}

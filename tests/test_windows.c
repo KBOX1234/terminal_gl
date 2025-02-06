@@ -12,7 +12,7 @@ int main(){
 
     int xi = 2;
     while(1){
-        fill_screen(' ', 0);
+        fill_screen('*', 0);
         draw_char('&', 1, 1, 0x05);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
@@ -23,5 +23,5 @@ int main(){
         update();
     }
 
-    sys_exit(0);
+    return 0;
 }
