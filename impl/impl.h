@@ -3,7 +3,7 @@
 
 void *allocate_memory(long size);
 
-void draw_buffer(char* buffer, int x, int y);
+void draw_buffer(char* buffer, int x, int y, char* color);
 
 void get_terminal_size(int *rows, int *cols);
 

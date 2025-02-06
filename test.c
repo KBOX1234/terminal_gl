@@ -8,12 +8,12 @@
 int main(){
 
     init_window("test program");
-    fill_screen(' ');
-    draw_char('&', 1, 1);
+    fill_screen(' ', 0);
+    draw_char('&', 1, 1, 0x05);
     //hide_cursor();
-    draw_text("hello world", 20, 20);
+    draw_text("hello world", 20, 20, 0x05);
     
-    draw_rectangle('#', 30, 30, 6, 6);
+    draw_rectangle('#', 30, 30, 6, 6, 0x75);
     while(1){
         update();
         //printf("%d\n", window_size_y);
