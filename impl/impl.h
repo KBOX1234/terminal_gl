@@ -15,3 +15,7 @@ void clear();
 void hide_cursor();
 
 void backend_init();
+
+void scan_input();
+
+char is_key_pressed(char key);

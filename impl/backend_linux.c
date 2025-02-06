@@ -155,6 +155,8 @@ char* color_table[256] = {
     // Other colors would continue similarly...
 };
 
+char key_bord[256];
+
 #endif // ANSI_COLORS_H
 
 char* buffer_expanded;
@@ -177,6 +179,16 @@ void get_terminal_size(int *rows, int *cols) {
     *cols = ws.ws_col;
 }
 
+void set_non_canonical_mode() {
+    struct termios newt;
+    tcgetattr(STDIN_FILENO, &newt);  // Get current terminal settings
+    newt.c_lflag &= ~(ICANON | ECHO);  // Disable canonical mode and echo
+    newt.c_cc[VMIN] = 1;  // Read at least 1 character
+    newt.c_cc[VTIME] = 0;  // No timeout
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);  // Apply new settings
+}
+
+
 void backend_init(){
     int window_x;
     int window_y;
@@ -184,6 +196,34 @@ void backend_init(){
     buffer_expanded_size = window_y*window_x;
     buffer_expanded_size = buffer_expanded_size*10;
     buffer_expanded = malloc(buffer_expanded_size);
+
+    set_non_canonical_mode();
+
+
+    //init ascii table;
+
+    int inc = 0;
+
+    while(inc < 256){
+        key_bord[inc] = 0;
+        inc++;
+    }
+}
+
+int kbhit(void) {
+    struct timeval tv = { 0, 0 };  // Timeout is 0 to make it non-blocking
+    fd_set fds;
+    FD_ZERO(&fds);
+    FD_SET(STDIN_FILENO, &fds);
+
+    // Check if data is available on stdin without blocking
+    int result = select(STDIN_FILENO + 1, &fds, NULL, NULL, &tv);
+    if (result == -1) {
+        // Handle error (optional)
+        perror("select");
+        return 0;
+    }
+    return result > 0;  // Returns 1 if data is available, otherwise 0
 }
 
 
@@ -217,7 +257,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
         y_inc++;
     }
     write(STD_OUT, buffer_expanded, buffer_expanded_inc);
-    sleep(1);
+    usleep(16667);
 
 }
 
@@ -232,4 +272,27 @@ void clear() {
 
 void hide_cursor() {
     write(STD_OUT, HIDE_CURSOR, 6);  // Send escape sequence to hide the cursor
+}
+
+void release_all_keys() {
+    for (int i = 0; i < 256; i++) {
+        key_bord[i] = 0;  // Reset all keys
+    }
+}
+
+void scan_input() {
+    release_all_keys();
+    while (kbhit()) {
+        char ch = getchar();  // Read the pressed key
+        if (ch >= 0 && ch < 256) {
+            key_bord[(unsigned char)ch] = 1;  // Mark key as pressed
+        }
+    }
+}
+
+char is_key_pressed(char key) {
+    if (key >= 0 && key < 256) {
+        return key_bord[(unsigned char)key];  // Return the state of the requested key
+    }
+    return 0;  // If the key is out of range, return 0 (not pressed)
 }
