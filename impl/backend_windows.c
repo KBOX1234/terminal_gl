@@ -23,6 +23,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
     WriteConsoleOutput(hConsole, charInfo, bufferSize, zeroCoord, &writeRegion);
     
     free(charInfo);  // Cleanup
+    Sleep(1000 / 60);
 }
 
 void get_terminal_size(int *rows, int *cols) {
@@ -59,29 +60,28 @@ void backend_init(){
     return;
 }
 
-#define KEYBOARD_SIZE 256
-
-unsigned char key_bord[KEYBOARD_SIZE] = {0};  // Array to hold key states
+char key_bord[256] = {0};  // Key state array
 
 void release_all_keys() {
-    for (int i = 0; i < KEYBOARD_SIZE; i++) {
+    for (int i = 0; i < 256; i++) {
         key_bord[i] = 0;  // Reset all keys
     }
 }
 
 void scan_input() {
-    release_all_keys();
-    for (int i = 0; i < KEYBOARD_SIZE; i++) {
-        SHORT keyState = GetAsyncKeyState(i);  // Get the key state for the key
-        if (keyState & 0x8000) {  // Check if the key is currently pressed
-            key_bord[i] = 1;  // Mark key as pressed
+    for (int i = 0; i < 256; i++) {
+        SHORT keyState = GetAsyncKeyState(toupper(i));
+        if (keyState & 0x8000) {  // If high-order bit is set, key is currently down
+            key_bord[i] = 1;
+        } else {
+            key_bord[i] = 0;
         }
     }
 }
 
 char is_key_pressed(char key) {
-    if (key >= 0 && key < KEYBOARD_SIZE) {
-        return key_bord[(unsigned char)key];  // Return the state of the requested key
-    }
-    return 0;  // If the key is out of range, return 0 (not pressed)
+    return (key >= 0 && key < 256) ? key_bord[(unsigned char)key] : 0;
+    /*SHORT keyState = GetAsyncKeyState(key);
+    if(keyState & 0x800)return 1;
+    return 0;*/
 }
