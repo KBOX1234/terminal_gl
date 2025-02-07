@@ -8,8 +8,8 @@ void init_window(char* name){
     color_data = allocate_memory(window_size_x*window_size_y);
     
     if (!window_buffer) {
-        printf("faled to allocate memory\n");
-        exit(1);
+        //printtf("faled to allocate memory\n");
+        //exit(1);
     }
 
     set_process_name(name);
