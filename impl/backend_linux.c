@@ -151,7 +151,6 @@ char* color_table[256] = {
     [0xF8] = "\x1b[97m\x1b[100m", [0xF9] = "\x1b[97m\x1b[101m", [0xFA] = "\x1b[97m\x1b[102m", [0xFB] = "\x1b[97m\x1b[103m",
     [0xFC] = "\x1b[97m\x1b[104m", [0xFD] = "\x1b[97m\x1b[105m", [0xFE] = "\x1b[97m\x1b[106m", [0xFF] = "\x1b[97m\x1b[107m"
 };
-
 char key_bord[256];
 
 #endif // ANSI_COLORS_H

@@ -4,6 +4,11 @@ void *allocate_memory(long size){
     return malloc(size);
 }
 
+char swap_nibbles(char value) {
+    // Shift the lower nibble to the upper nibble and vice versa
+    return (value >> 4) | (value << 4);
+}
+
 void draw_buffer(char* buffer, int x, int y, char* color_data) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     COORD bufferSize = {x, y};  // Console buffer size
@@ -16,7 +21,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
     // Fill the CHAR_INFO buffer
     for (int i = 0; i < x * y; i++) {
         charInfo[i].Char.AsciiChar = buffer[i];     // Character
-        charInfo[i].Attributes = (WORD)color_data[i]; // Foreground + Background
+        charInfo[i].Attributes = (WORD)swap_nibbles(color_data[i]); // Foreground + Background
     }
 
     // Write the full buffer at once
@@ -81,7 +86,4 @@ void scan_input() {
 
 char is_key_pressed(char key) {
     return (key >= 0 && key < 256) ? key_bord[(unsigned char)key] : 0;
-    /*SHORT keyState = GetAsyncKeyState(key);
-    if(keyState & 0x800)return 1;
-    return 0;*/
 }

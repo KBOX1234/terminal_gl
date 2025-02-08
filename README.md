@@ -1,7 +1,18 @@
 # Termial GL
 
-Terminal GL is a graphics library for drawing graphics in the terminal using text 
-Terminal GL also does come with some functionality for input, but should only be used for debugging as different platforms handle input differently (for example input on windows termianl is fluid whereas on linux, it is buffered and delayed)
+Terminal GL is a graphics library for drawing 16 color graphics in the terminal using text.
+
+## The Goal
+The goal of termianl gl to to create an open source graphics library that makes it easy to develop software that can run in the terminal or in text-based graphics mods seamlessly accross all platforms.
+
+### List of Goals for this project
+- Good consistant IO
+- Image/Text graphics loading
+- Canvas manipulation
+- Bleeding edge performance
+- Good support for ssh
+- Good support for all hardware with text-mode/terminal
+- Run Doom on it
 
 ## How do I use?
 To get started, you need to clone the repo into your project:
@@ -38,6 +49,7 @@ This example shows some basic functionality of the library.
 ### Dependancies
 This library has no dependacies so building is quite simple.
 That said, make sure that your compile can find platform specific libraries that are needed (such as windows.h).
+If you want to use image loading, then you will need stb_image.h and add the compiler flag -lm
 
 ### Building example
 ```sh
@@ -59,3 +71,5 @@ int main(){
     return 0;
 }
 ```
+## Community
+Check out Terminal GL's discord server [here](https://discord.gg/UkDNFYFatQ)

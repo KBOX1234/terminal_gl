@@ -32,8 +32,12 @@ void fill_screen(char chare, char color){
 }
 
 void draw_char(char c, int x, int y, char color){
-    window_buffer[window_size_x*y+x] = c;
-    color_data[window_size_x*y+x] = color;
+    if(x < window_size_x && x > 0){
+        if(y < window_size_y && y > 0){
+            window_buffer[window_size_x*y+x] = c;
+            color_data[window_size_x*y+x] = color;
+        }
+    }
 }
 
 void draw_text(const char* text, int x, int y, char color){
