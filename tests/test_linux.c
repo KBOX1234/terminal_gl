@@ -19,6 +19,8 @@ int main(){
     while(1){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
+
+        render_text_image(smile, 3, 3);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
         

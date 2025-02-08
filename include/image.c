@@ -78,5 +78,17 @@ struct text_image load_image_to_text(const char* file, char fill, char adjust_fo
 }
 
 void render_text_image(struct text_image img, int pos_x, int pos_y){
-    
+    int inc = 0;
+    int pointer_x = pos_x;
+    int pointer_y = pos_y;
+
+    while(pointer_y < pos_y+img.y){
+        while(pointer_x < pos_x+img.x){
+            draw_char(img.buffer_data[inc], pointer_x, pointer_y, img.color_data[inc]);
+            inc++;
+            pointer_x++;
+        }
+        pointer_x = pos_x;
+        pointer_y++;
+    }
 }
