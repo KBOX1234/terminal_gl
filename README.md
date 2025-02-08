@@ -49,6 +49,7 @@ This example shows some basic functionality of the library.
 ### Dependancies
 This library has no dependacies so building is quite simple.
 That said, make sure that your compile can find platform specific libraries that are needed (such as windows.h).
+If you want to use image loading, then you will need stb_image.h and add the compiler flag -lm
 
 ### Building example
 ```sh

@@ -31,8 +31,6 @@ void draw_line(char fill, int pos_x_1, int pos_y_1, int pos_x_2, int pos_y_2, ch
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
 
 struct text_image load_image_to_text(const char* file, char fill, char adjust_for_pixel_aspect_ratio, char fg_or_bg);
 
