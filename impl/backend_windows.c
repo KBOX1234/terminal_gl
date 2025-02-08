@@ -81,7 +81,4 @@ void scan_input() {
 
 char is_key_pressed(char key) {
     return (key >= 0 && key < 256) ? key_bord[(unsigned char)key] : 0;
-    /*SHORT keyState = GetAsyncKeyState(key);
-    if(keyState & 0x800)return 1;
-    return 0;*/
 }

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define IMG_LOADING
+
 #include "terminal_gl.h"
 #include "impl/backend_linux.c"
 
@@ -11,6 +13,9 @@ int main(){
 
     int xi = 2;
     int yi = 2;
+    
+
+    struct text_image smile = load_image_to_text("test.png", '#', 0, 0);
     while(1){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
@@ -19,7 +24,7 @@ int main(){
         
         draw_rectangle('#', xi, yi, 6, 6, 0x75);
 
-        draw_line('%', 1, 3, 10, 30, 0x10);
+        draw_line('%', 1, 1, 1, 30, 0x10);
         scan_input();
 
         if(is_key_pressed('a') == 1){
