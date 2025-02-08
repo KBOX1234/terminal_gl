@@ -18,4 +18,7 @@ void draw_text(const char* text, int x, int y, char color);
 
 void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y, char color);
 
+void draw_line(char fill, int pos_x_1, int pos_y_1, int pos_x_2, int pos_y_2, char color);
+
 #include "terminal_gl.c"
+#include "include/shapes.c"

@@ -70,8 +70,6 @@
 
 
 char* color_table[256] = {
-    // Foreground: 30-37 (standard) and 90-97 (bright), Background: 40-47 (standard) and 100-107 (bright)
-    // Table for 16 foreground × 16 background combinations
     [0x00] = "\x1b[30m\x1b[40m", [0x01] = "\x1b[30m\x1b[41m", [0x02] = "\x1b[30m\x1b[42m", [0x03] = "\x1b[30m\x1b[43m",
     [0x04] = "\x1b[30m\x1b[44m", [0x05] = "\x1b[30m\x1b[45m", [0x06] = "\x1b[30m\x1b[46m", [0x07] = "\x1b[30m\x1b[47m",
     [0x08] = "\x1b[30m\x1b[100m", [0x09] = "\x1b[30m\x1b[101m", [0x0A] = "\x1b[30m\x1b[102m", [0x0B] = "\x1b[30m\x1b[103m",
@@ -97,62 +95,61 @@ char* color_table[256] = {
     [0x48] = "\x1b[34m\x1b[100m", [0x49] = "\x1b[34m\x1b[101m", [0x4A] = "\x1b[34m\x1b[102m", [0x4B] = "\x1b[34m\x1b[103m",
     [0x4C] = "\x1b[34m\x1b[104m", [0x4D] = "\x1b[34m\x1b[105m", [0x4E] = "\x1b[34m\x1b[106m", [0x4F] = "\x1b[34m\x1b[107m",
     
-    [0x50] = "\x1b[34m\x1b[40m", [0x51] = "\x1b[34m\x1b[41m", [0x52] = "\x1b[34m\x1b[42m", [0x53] = "\x1b[34m\x1b[43m",
-    [0x54] = "\x1b[34m\x1b[44m", [0x55] = "\x1b[34m\x1b[45m", [0x56] = "\x1b[34m\x1b[46m", [0x57] = "\x1b[34m\x1b[47m",
-    [0x58] = "\x1b[34m\x1b[100m", [0x59] = "\x1b[34m\x1b[101m", [0x5A] = "\x1b[34m\x1b[102m", [0x5B] = "\x1b[34m\x1b[103m",
-    [0x5C] = "\x1b[34m\x1b[104m", [0x5D] = "\x1b[34m\x1b[105m", [0x5E] = "\x1b[34m\x1b[106m", [0x5F] = "\x1b[34m\x1b[107m",
+    [0x50] = "\x1b[35m\x1b[40m", [0x51] = "\x1b[35m\x1b[41m", [0x52] = "\x1b[35m\x1b[42m", [0x53] = "\x1b[35m\x1b[43m",
+    [0x54] = "\x1b[35m\x1b[44m", [0x55] = "\x1b[35m\x1b[45m", [0x56] = "\x1b[35m\x1b[46m", [0x57] = "\x1b[35m\x1b[47m",
+    [0x58] = "\x1b[35m\x1b[100m", [0x59] = "\x1b[35m\x1b[101m", [0x5A] = "\x1b[35m\x1b[102m", [0x5B] = "\x1b[35m\x1b[103m",
+    [0x5C] = "\x1b[35m\x1b[104m", [0x5D] = "\x1b[35m\x1b[105m", [0x5E] = "\x1b[35m\x1b[106m", [0x5F] = "\x1b[35m\x1b[107m",
 
-    [0x60] = "\x1b[34m\x1b[40m", [0x61] = "\x1b[34m\x1b[41m", [0x62] = "\x1b[34m\x1b[42m", [0x63] = "\x1b[34m\x1b[43m",
-    [0x64] = "\x1b[34m\x1b[44m", [0x65] = "\x1b[34m\x1b[45m", [0x66] = "\x1b[34m\x1b[46m", [0x67] = "\x1b[34m\x1b[47m",
-    [0x68] = "\x1b[34m\x1b[100m", [0x69] = "\x1b[34m\x1b[101m", [0x6A] = "\x1b[34m\x1b[102m", [0x6B] = "\x1b[34m\x1b[103m",
-    [0x6C] = "\x1b[34m\x1b[104m", [0x6D] = "\x1b[34m\x1b[105m", [0x6E] = "\x1b[34m\x1b[106m", [0x6F] = "\x1b[34m\x1b[107m",
-
-    [0x70] = "\x1b[34m\x1b[40m", [0x71] = "\x1b[34m\x1b[41m", [0x72] = "\x1b[34m\x1b[42m", [0x73] = "\x1b[34m\x1b[43m",
-    [0x74] = "\x1b[34m\x1b[44m", [0x75] = "\x1b[34m\x1b[45m", [0x76] = "\x1b[34m\x1b[46m", [0x77] = "\x1b[34m\x1b[47m",
-    [0x78] = "\x1b[34m\x1b[100m", [0x79] = "\x1b[34m\x1b[101m", [0x7A] = "\x1b[34m\x1b[102m", [0x7B] = "\x1b[34m\x1b[103m",
-    [0x7C] = "\x1b[34m\x1b[104m", [0x7D] = "\x1b[34m\x1b[105m", [0x7E] = "\x1b[34m\x1b[106m", [0x7F] = "\x1b[34m\x1b[107m",
-
-    [0x80] = "\x1b[34m\x1b[40m", [0x81] = "\x1b[34m\x1b[41m", [0x82] = "\x1b[34m\x1b[42m", [0x83] = "\x1b[34m\x1b[43m",
-    [0x84] = "\x1b[34m\x1b[44m", [0x85] = "\x1b[34m\x1b[45m", [0x86] = "\x1b[34m\x1b[46m", [0x87] = "\x1b[34m\x1b[47m",
-    [0x88] = "\x1b[34m\x1b[100m", [0x89] = "\x1b[34m\x1b[101m", [0x8A] = "\x1b[34m\x1b[102m", [0x8B] = "\x1b[34m\x1b[103m",
-    [0x8C] = "\x1b[34m\x1b[104m", [0x8D] = "\x1b[34m\x1b[105m", [0x8E] = "\x1b[34m\x1b[106m", [0x8F] = "\x1b[34m\x1b[107m",
-
-    [0x90] = "\x1b[34m\x1b[40m", [0x91] = "\x1b[34m\x1b[41m", [0x92] = "\x1b[34m\x1b[42m", [0x93] = "\x1b[34m\x1b[43m",
-    [0x94] = "\x1b[34m\x1b[44m", [0x95] = "\x1b[34m\x1b[45m", [0x96] = "\x1b[34m\x1b[46m", [0x97] = "\x1b[34m\x1b[47m",
-    [0x98] = "\x1b[34m\x1b[100m", [0x99] = "\x1b[34m\x1b[101m", [0x9A] = "\x1b[34m\x1b[102m", [0x9B] = "\x1b[34m\x1b[103m",
-    [0x9C] = "\x1b[34m\x1b[104m", [0x9D] = "\x1b[34m\x1b[105m", [0x9E] = "\x1b[34m\x1b[106m", [0x9F] = "\x1b[34m\x1b[107m",
-
-    [0xa0] = "\x1b[34m\x1b[40m", [0xa1] = "\x1b[34m\x1b[41m", [0xa2] = "\x1b[34m\x1b[42m", [0xa3] = "\x1b[34m\x1b[43m",
-    [0xa4] = "\x1b[34m\x1b[44m", [0xa5] = "\x1b[34m\x1b[45m", [0xa6] = "\x1b[34m\x1b[46m", [0xa7] = "\x1b[34m\x1b[47m",
-    [0xa8] = "\x1b[34m\x1b[100m", [0xa9] = "\x1b[34m\x1b[101m", [0xaA] = "\x1b[34m\x1b[102m", [0xaB] = "\x1b[34m\x1b[103m",
-    [0xaC] = "\x1b[34m\x1b[104m", [0xaD] = "\x1b[34m\x1b[105m", [0xaE] = "\x1b[34m\x1b[106m", [0xaF] = "\x1b[34m\x1b[107m",
-
-    [0xb0] = "\x1b[34m\x1b[40m", [0xb1] = "\x1b[34m\x1b[41m", [0xb2] = "\x1b[34m\x1b[42m", [0xb3] = "\x1b[34m\x1b[43m",
-    [0xb4] = "\x1b[34m\x1b[44m", [0xb5] = "\x1b[34m\x1b[45m", [0xb6] = "\x1b[34m\x1b[46m", [0xb7] = "\x1b[34m\x1b[47m",
-    [0xb8] = "\x1b[34m\x1b[100m", [0xb9] = "\x1b[34m\x1b[101m", [0xbA] = "\x1b[34m\x1b[102m", [0xbB] = "\x1b[34m\x1b[103m",
-    [0xbC] = "\x1b[34m\x1b[104m", [0xbD] = "\x1b[34m\x1b[105m", [0xbE] = "\x1b[34m\x1b[106m", [0xbF] = "\x1b[34m\x1b[107m",
-
-    [0xc0] = "\x1b[34m\x1b[40m", [0xc1] = "\x1b[34m\x1b[41m", [0xc2] = "\x1b[34m\x1b[42m", [0xc3] = "\x1b[34m\x1b[43m",
-    [0xc4] = "\x1b[34m\x1b[44m", [0xc5] = "\x1b[34m\x1b[45m", [0xc6] = "\x1b[34m\x1b[46m", [0xc7] = "\x1b[34m\x1b[47m",
-    [0xc8] = "\x1b[34m\x1b[100m", [0xc9] = "\x1b[34m\x1b[101m", [0xcA] = "\x1b[34m\x1b[102m", [0xcB] = "\x1b[34m\x1b[103m",
-    [0xcC] = "\x1b[34m\x1b[104m", [0xcD] = "\x1b[34m\x1b[105m", [0xcE] = "\x1b[34m\x1b[106m", [0xcF] = "\x1b[34m\x1b[107m",
-
-    [0xd0] = "\x1b[34m\x1b[40m", [0xd1] = "\x1b[34m\x1b[41m", [0xd2] = "\x1b[34m\x1b[42m", [0xd3] = "\x1b[34m\x1b[43m",
-    [0xd4] = "\x1b[34m\x1b[44m", [0xd5] = "\x1b[34m\x1b[45m", [0xd6] = "\x1b[34m\x1b[46m", [0xd7] = "\x1b[34m\x1b[47m",
-    [0xd8] = "\x1b[34m\x1b[100m", [0xd9] = "\x1b[34m\x1b[101m", [0xdA] = "\x1b[34m\x1b[102m", [0xdB] = "\x1b[34m\x1b[103m",
-    [0xdC] = "\x1b[34m\x1b[104m", [0xdD] = "\x1b[34m\x1b[105m", [0xdE] = "\x1b[34m\x1b[106m", [0xdF] = "\x1b[34m\x1b[107m",
-
-    [0xe0] = "\x1b[34m\x1b[40m", [0xe1] = "\x1b[34m\x1b[41m", [0xe2] = "\x1b[34m\x1b[42m", [0xe3] = "\x1b[34m\x1b[43m",
-    [0xe4] = "\x1b[34m\x1b[44m", [0xe5] = "\x1b[34m\x1b[45m", [0xe6] = "\x1b[34m\x1b[46m", [0xe7] = "\x1b[34m\x1b[47m",
-    [0xe8] = "\x1b[34m\x1b[100m", [0xe9] = "\x1b[34m\x1b[101m", [0xeA] = "\x1b[34m\x1b[102m", [0xeB] = "\x1b[34m\x1b[103m",
-    [0xeC] = "\x1b[34m\x1b[104m", [0xeD] = "\x1b[34m\x1b[105m", [0xeE] = "\x1b[34m\x1b[106m", [0xeF] = "\x1b[34m\x1b[107m",
-
-    [0xf0] = "\x1b[34m\x1b[40m", [0xf1] = "\x1b[34m\x1b[41m", [0xf2] = "\x1b[34m\x1b[42m", [0xf3] = "\x1b[34m\x1b[43m",
-    [0xf4] = "\x1b[34m\x1b[44m", [0xf5] = "\x1b[34m\x1b[45m", [0xf6] = "\x1b[34m\x1b[46m", [0xf7] = "\x1b[34m\x1b[47m",
-    [0xf8] = "\x1b[34m\x1b[100m", [0xf9] = "\x1b[34m\x1b[101m", [0xfA] = "\x1b[34m\x1b[102m", [0xfB] = "\x1b[34m\x1b[103m",
-    [0xfC] = "\x1b[34m\x1b[104m", [0xfD] = "\x1b[34m\x1b[105m", [0xfE] = "\x1b[34m\x1b[106m", [0xfF] = "\x1b[34m\x1b[107m",
+    [0x60] = "\x1b[36m\x1b[40m", [0x61] = "\x1b[36m\x1b[41m", [0x62] = "\x1b[36m\x1b[42m", [0x63] = "\x1b[36m\x1b[43m",
+    [0x64] = "\x1b[36m\x1b[44m", [0x65] = "\x1b[36m\x1b[45m", [0x66] = "\x1b[36m\x1b[46m", [0x67] = "\x1b[36m\x1b[47m",
+    [0x68] = "\x1b[36m\x1b[100m", [0x69] = "\x1b[36m\x1b[101m", [0x6A] = "\x1b[36m\x1b[102m", [0x6B] = "\x1b[36m\x1b[103m",
+    [0x6C] = "\x1b[36m\x1b[104m", [0x6D] = "\x1b[36m\x1b[105m", [0x6E] = "\x1b[36m\x1b[106m", [0x6F] = "\x1b[36m\x1b[107m",
     
-    // Other colors would continue similarly...
+    [0x70] = "\x1b[37m\x1b[40m", [0x71] = "\x1b[37m\x1b[41m", [0x72] = "\x1b[37m\x1b[42m", [0x73] = "\x1b[37m\x1b[43m",
+    [0x74] = "\x1b[37m\x1b[44m", [0x75] = "\x1b[37m\x1b[45m", [0x76] = "\x1b[37m\x1b[46m", [0x77] = "\x1b[37m\x1b[47m",
+    [0x78] = "\x1b[37m\x1b[100m", [0x79] = "\x1b[37m\x1b[101m", [0x7A] = "\x1b[37m\x1b[102m", [0x7B] = "\x1b[37m\x1b[103m",
+    [0x7C] = "\x1b[37m\x1b[104m", [0x7D] = "\x1b[37m\x1b[105m", [0x7E] = "\x1b[37m\x1b[106m", [0x7F] = "\x1b[37m\x1b[107m",
+
+    // Bright colors
+    [0x80] = "\x1b[90m\x1b[40m", [0x81] = "\x1b[90m\x1b[41m", [0x82] = "\x1b[90m\x1b[42m", [0x83] = "\x1b[90m\x1b[43m",
+    [0x84] = "\x1b[90m\x1b[44m", [0x85] = "\x1b[90m\x1b[45m", [0x86] = "\x1b[90m\x1b[46m", [0x87] = "\x1b[90m\x1b[47m",
+    [0x88] = "\x1b[90m\x1b[100m", [0x89] = "\x1b[90m\x1b[101m", [0x8A] = "\x1b[90m\x1b[102m", [0x8B] = "\x1b[90m\x1b[103m",
+    [0x8C] = "\x1b[90m\x1b[104m", [0x8D] = "\x1b[90m\x1b[105m", [0x8E] = "\x1b[90m\x1b[106m", [0x8F] = "\x1b[90m\x1b[107m",
+
+    [0x90] = "\x1b[91m\x1b[40m", [0x91] = "\x1b[91m\x1b[41m", [0x92] = "\x1b[91m\x1b[42m", [0x93] = "\x1b[91m\x1b[43m",
+    [0x94] = "\x1b[91m\x1b[44m", [0x95] = "\x1b[91m\x1b[45m", [0x96] = "\x1b[91m\x1b[46m", [0x97] = "\x1b[91m\x1b[47m",
+    [0x98] = "\x1b[91m\x1b[100m", [0x99] = "\x1b[91m\x1b[101m", [0x9A] = "\x1b[91m\x1b[102m", [0x9B] = "\x1b[91m\x1b[103m",
+    [0x9C] = "\x1b[91m\x1b[104m", [0x9D] = "\x1b[91m\x1b[105m", [0x9E] = "\x1b[91m\x1b[106m", [0x9F] = "\x1b[91m\x1b[107m",
+
+    [0xA0] = "\x1b[92m\x1b[40m", [0xA1] = "\x1b[92m\x1b[41m", [0xA2] = "\x1b[92m\x1b[42m", [0xA3] = "\x1b[92m\x1b[43m",
+    [0xA4] = "\x1b[92m\x1b[44m", [0xA5] = "\x1b[92m\x1b[45m", [0xA6] = "\x1b[92m\x1b[46m", [0xA7] = "\x1b[92m\x1b[47m",
+    [0xA8] = "\x1b[92m\x1b[100m", [0xA9] = "\x1b[92m\x1b[101m", [0xAA] = "\x1b[92m\x1b[102m", [0xAB] = "\x1b[92m\x1b[103m",
+    [0xAC] = "\x1b[92m\x1b[104m", [0xAD] = "\x1b[92m\x1b[105m", [0xAE] = "\x1b[92m\x1b[106m", [0xAF] = "\x1b[92m\x1b[107m",
+
+    [0xB0] = "\x1b[93m\x1b[40m", [0xB1] = "\x1b[93m\x1b[41m", [0xB2] = "\x1b[93m\x1b[42m", [0xB3] = "\x1b[93m\x1b[43m",
+    [0xB4] = "\x1b[93m\x1b[44m", [0xB5] = "\x1b[93m\x1b[45m", [0xB6] = "\x1b[93m\x1b[46m", [0xB7] = "\x1b[93m\x1b[47m",
+    [0xB8] = "\x1b[93m\x1b[100m", [0xB9] = "\x1b[93m\x1b[101m", [0xBA] = "\x1b[93m\x1b[102m", [0xBB] = "\x1b[93m\x1b[103m",
+    [0xBC] = "\x1b[93m\x1b[104m", [0xBD] = "\x1b[93m\x1b[105m", [0xBE] = "\x1b[93m\x1b[106m", [0xBF] = "\x1b[93m\x1b[107m",
+
+    [0xC0] = "\x1b[94m\x1b[40m", [0xC1] = "\x1b[94m\x1b[41m", [0xC2] = "\x1b[94m\x1b[42m", [0xC3] = "\x1b[94m\x1b[43m",
+    [0xC4] = "\x1b[94m\x1b[44m", [0xC5] = "\x1b[94m\x1b[45m", [0xC6] = "\x1b[94m\x1b[46m", [0xC7] = "\x1b[94m\x1b[47m",
+    [0xC8] = "\x1b[94m\x1b[100m", [0xC9] = "\x1b[94m\x1b[101m", [0xCA] = "\x1b[94m\x1b[102m", [0xCB] = "\x1b[94m\x1b[103m",
+    [0xCC] = "\x1b[94m\x1b[104m", [0xCD] = "\x1b[94m\x1b[105m", [0xCE] = "\x1b[94m\x1b[106m", [0xCF] = "\x1b[94m\x1b[107m",
+
+    [0xD0] = "\x1b[95m\x1b[40m", [0xD1] = "\x1b[95m\x1b[41m", [0xD2] = "\x1b[95m\x1b[42m", [0xD3] = "\x1b[95m\x1b[43m",
+    [0xD4] = "\x1b[95m\x1b[44m", [0xD5] = "\x1b[95m\x1b[45m", [0xD6] = "\x1b[95m\x1b[46m", [0xD7] = "\x1b[95m\x1b[47m",
+    [0xD8] = "\x1b[95m\x1b[100m", [0xD9] = "\x1b[95m\x1b[101m", [0xDA] = "\x1b[95m\x1b[102m", [0xDB] = "\x1b[95m\x1b[103m",
+    [0xDC] = "\x1b[95m\x1b[104m", [0xDD] = "\x1b[95m\x1b[105m", [0xDE] = "\x1b[95m\x1b[106m", [0xDF] = "\x1b[95m\x1b[107m",
+
+    [0xE0] = "\x1b[96m\x1b[40m", [0xE1] = "\x1b[96m\x1b[41m", [0xE2] = "\x1b[96m\x1b[42m", [0xE3] = "\x1b[96m\x1b[43m",
+    [0xE4] = "\x1b[96m\x1b[44m", [0xE5] = "\x1b[96m\x1b[45m", [0xE6] = "\x1b[96m\x1b[46m", [0xE7] = "\x1b[96m\x1b[47m",
+    [0xE8] = "\x1b[96m\x1b[100m", [0xE9] = "\x1b[96m\x1b[101m", [0xEA] = "\x1b[96m\x1b[102m", [0xEB] = "\x1b[96m\x1b[103m",
+    [0xEC] = "\x1b[96m\x1b[104m", [0xED] = "\x1b[96m\x1b[105m", [0xEE] = "\x1b[96m\x1b[106m", [0xEF] = "\x1b[96m\x1b[107m",
+
+    [0xF0] = "\x1b[97m\x1b[40m", [0xF1] = "\x1b[97m\x1b[41m", [0xF2] = "\x1b[97m\x1b[42m", [0xF3] = "\x1b[97m\x1b[43m",
+    [0xF4] = "\x1b[97m\x1b[44m", [0xF5] = "\x1b[97m\x1b[45m", [0xF6] = "\x1b[97m\x1b[46m", [0xF7] = "\x1b[97m\x1b[47m",
+    [0xF8] = "\x1b[97m\x1b[100m", [0xF9] = "\x1b[97m\x1b[101m", [0xFA] = "\x1b[97m\x1b[102m", [0xFB] = "\x1b[97m\x1b[103m",
+    [0xFC] = "\x1b[97m\x1b[104m", [0xFD] = "\x1b[97m\x1b[105m", [0xFE] = "\x1b[97m\x1b[106m", [0xFF] = "\x1b[97m\x1b[107m"
 };
 
 char key_bord[256];

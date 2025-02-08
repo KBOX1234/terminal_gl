@@ -18,6 +18,8 @@ int main(){
         draw_text("hello world", 20, 20, 0x05);
         
         draw_rectangle('#', xi, yi, 6, 6, 0x75);
+
+        draw_line('%', 1, 3, 10, 30, 0x10);
         scan_input();
 
         if(is_key_pressed('a') == 1){

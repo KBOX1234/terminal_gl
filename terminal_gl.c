@@ -47,17 +47,3 @@ void draw_text(const char* text, int x, int y, char color){
         charinc++;
     }
 }
-
-void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y, char color){
-    int pointer_x = pos_x;
-    int pointer_y = pos_y;
-
-    while(pointer_x < pos_x + size_x){
-        while(pointer_y < pos_y + size_y){
-            draw_char(fill, pointer_x, pointer_y, color);
-            pointer_y++;
-        }
-        pointer_y = pos_y;
-        pointer_x++;
-    }
-}
