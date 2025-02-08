@@ -11,7 +11,7 @@ git clone https://github.com/KBOX1234/terminal_gl.git
 After that, you can include the terminal_gl.h into your project.
 You will also have to include a backend into your project.
 
-#### Here is an example project
+### Here is an example project
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,18 +35,18 @@ int main(){
 ```
 This example shows some basic functionality of the library.
 
-#### Dependancies
+### Dependancies
 This library has no dependacies so building is quite simple.
 That said, make sure that your compile can find platform specific libraries that are needed (such as windows.h).
 
-#### Building example
+### Building example
 ```sh
 gcc example.c -o example -Ipath/to/terminal_gl
 ```
 ## Backends
 Terminal GL uses backends to interface with the OS as apposed to hard codding support in.
 This allows for terminal gl to be easily ported to other platforms.
-#### Creating backends
+### Creating backends
 If your platform does not have a backend, it is pretty easy to make one.
 To start, you must check the file impl/impl.h
 It contains defenitions for all the functions that terminal gl needs to run.
