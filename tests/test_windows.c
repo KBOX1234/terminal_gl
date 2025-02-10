@@ -3,6 +3,7 @@
 
 //set PATH=%PATH%;c:\\raylib\\w64devkit\\bin
 #define IMG_LOADING
+#define LOAD_CHAR
 #include "terminal_gl.h"
 #include "impl/backend_windows.c"
 
@@ -15,12 +16,14 @@ int main(){
     int yi = 2;
     
 
-    struct text_image smile = load_image_to_text("test.png", '#', 0, 0);
+    struct text_image smile = load_image_to_text("test.png", '#');
+    struct text_image text_buff2 = load_buffer("test.txt");
     while(1){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
 
         render_text_image(smile, xi, yi);
+        render_text_image(text_buff2, 10, 10);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
         

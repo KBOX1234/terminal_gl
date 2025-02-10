@@ -57,7 +57,7 @@ char* convert_stbi_to_vga(const uint8_t* img_data, int width, int height, int ch
     return vga_bitmap;
 }
 
-struct text_image load_image_to_text(const char* file, char fill, char adjust_for_pixel_aspect_ratio, char fg_or_bg){
+struct text_image load_image_to_text(const char* file, char fill){
     struct text_image text_img;
     
     int channels;
@@ -75,6 +75,60 @@ struct text_image load_image_to_text(const char* file, char fill, char adjust_fo
 
     return text_img;
 
+}
+
+struct text_image load_buffer(const char *name) {
+    FILE *fptr = fopen(name, "r");
+    if (!fptr) {
+        perror("Failed to open file");
+        exit(EXIT_FAILURE);
+    }
+
+    fseek(fptr, 0, SEEK_END);
+    size_t length = ftell(fptr);
+    rewind(fptr); // Reset file pointer
+
+    struct text_image char_img;
+    char_img.buffer_data = malloc(length + 1);
+    char_img.color_data = malloc(length + 1);
+    if (!char_img.buffer_data || !char_img.color_data) {
+        perror("Memory allocation failed");
+        fclose(fptr);
+        exit(EXIT_FAILURE);
+    }
+
+    memset(char_img.color_data, 0x0f, length);
+    fread(char_img.buffer_data, 1, length, fptr);
+    char_img.buffer_data[length] = '\0'; // Null-terminate buffer
+
+    fclose(fptr);
+
+    // Determine width (x) and height (y)
+    char_img.x = 0;
+    char_img.y = 1;
+    size_t i = 0;
+    while (i < length) {
+        if (char_img.buffer_data[i] == '\n') {
+            if (char_img.x == 0) {
+                char_img.x = i; // Set width (x) from the first line
+            }
+            char_img.y++; // Count lines
+        }
+        i++;
+    }
+
+    // Remove newlines by shifting characters left
+    size_t write_pos = 0;
+    i = 0;
+    while (i < length) {
+        if (char_img.buffer_data[i] != '\n') {
+            char_img.buffer_data[write_pos++] = char_img.buffer_data[i];
+        }
+        i++;
+    }
+    char_img.buffer_data[write_pos] = '\0'; // Null-terminate after removal
+
+    return char_img;
 }
 
 void render_text_image(struct text_image img, int pos_x, int pos_y){
