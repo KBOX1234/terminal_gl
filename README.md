@@ -6,6 +6,7 @@ Terminal GL is a graphics library for drawing 16 color graphics in the terminal 
 The goal of termianl gl to to create an open source graphics library that makes it easy to develop software that can run in the terminal or in text-based graphics mods seamlessly accross all platforms.
 
 ### List of Goals for this project
+- Good debugging
 - Good consistant IO
 - Image/Text graphics loading
 - Canvas manipulation
