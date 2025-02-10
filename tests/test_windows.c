@@ -20,11 +20,11 @@ int main(){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
 
-        render_text_image(smile, 3, 3);
+        render_text_image(smile, xi, yi);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
         
-        draw_rectangle('#', xi, yi, 6, 6, 0x75);
+        //draw_rectangle('#', xi, yi, 6, 6, 0x75);
 
         draw_line('%', 1, 1, 1, 30, 0x10);
         scan_input();
