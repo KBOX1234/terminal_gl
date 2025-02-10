@@ -4,7 +4,7 @@ Hello, this tutorial talks about creating a small project start to finish.
 ## Chapters
 - Setup
 - Code (where the fun begins)
-- Build 
+- Building
 
 
 ## Setup
@@ -55,4 +55,56 @@ with:
 ```
 Ok, so what are we seeing here?
 The first line we care about is this:
+```c
+init_window("my first tgl project");
 ```
+This line sets up terminal gl. 
+Its main job is to set the pid name and the window name to the argument passed.
+It also will run any platform specific code needed to run on start (for example linux needs to allocate a 3rd buffer becaus of how it can only reliably handle colors as ansi codes).
+Moving on to the while loop, inside we first come accross this command:
+```c
+fill_screen(' ', 0);
+```
+Just in case it is not obvius, fill_screen() fills the screen.
+The first argument accepts a char value that represents a charectur to fill the screen with.
+The second argument accepts a VGA/DOS style color code. The color is 4 bits but accepts a whoal 8 bit char.
+This is so that you can pass the forground color on the first 4 bits and the background color on the last 4 bits.
+Here is a good resource for understanding VGA color codes: [www.fountainware.com](https://www.fountainware.com/EXPL/vga_color_palettes.htm)
+
+On the next line we have this:
+```c
+draw_text("hello world", 20, 20, 0x05);
+```
+This line draws text to the screen.
+The first argument accepts a C style string and the next 2 values accepts the x and y of where the string will begin drawing.
+The last argument is the color of the text using a VGA style color code like the one used in the previous command.
+
+Last but not least, we have this line:
+```c
+update();
+```
+It is important to remember this command becaus without it, your program will not show anything.
+The update command is task with drawing all the buffer and color data to the screen using low level commands to run as fast as possible.
+
+## Building
+Now it is time to see the fruits of our labor and see what this code does.
+### What your project should look like
+To avoid any frustraion amoungst newer programmers, I will show you what your project structure should look like:
+- Project root
+- - main.c
+- - terminal_gl
+- - stb_image.h
+-
+If thats what your project looks like, then you should be all set to compile it.
+### Compiling with gcc
+Now its time to compile our program.
+To compile, open up a terminal and CD into the project root directory.
+Once you have done that, run this command to compile it:
+```sh
+gcc main.c -o program -I./terminal_gl -lm
+```
+
+If your program compiled succsefully, then you should have an excutable called program (program.exe on windows).
+
+# Congrats
+You have compleated the tutorial level :))
