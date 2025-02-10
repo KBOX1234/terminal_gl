@@ -131,18 +131,51 @@ struct text_image load_buffer(const char *name) {
     return char_img;
 }
 
-void render_text_image(struct text_image img, int pos_x, int pos_y){
-    int inc = 0;
-    int pointer_x = pos_x;
-    int pointer_y = pos_y;
+void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_pixel_ratio){
+    if(normal_pixel_ratio == 0){    
+        int inc = 0;
+        int pointer_x = pos_x;
+        int pointer_y = pos_y;
 
-    while(pointer_y < pos_y+img.y){
-        while(pointer_x < pos_x+img.x){
-            draw_char(img.buffer_data[inc], pointer_x, pointer_y, img.color_data[inc]);
-            inc++;
-            pointer_x++;
+        while(pointer_y < pos_y+img.y){
+            while(pointer_x < pos_x+img.x){
+                draw_char(img.buffer_data[inc], pointer_x, pointer_y, img.color_data[inc]);
+                inc++;
+
+                pointer_x++;
+            }
+            pointer_x = pos_x;
+            pointer_y++;
         }
+    }
+
+    else if(normal_pixel_ratio == 1){
+        int inc = 0;
+        int pointer_x = pos_x;
+        int pointer_y = pos_y;
+
+        while(pointer_y < pos_y+img.y){
+            while(pointer_x < pos_x+img.x*2){
+                draw_char(img.buffer_data[inc], pointer_x, pointer_y, img.color_data[inc]);
+                inc++;
+
+                pointer_x = pointer_x + 2;
+            }
+            pointer_x = pos_x;
+            pointer_y++;
+        }
+        inc = 0;
         pointer_x = pos_x;
-        pointer_y++;
+        pointer_y = pos_y;
+
+        while(pointer_y < pos_y+img.y){
+            while(pointer_x < pos_x+img.x*2){
+                draw_char(img.buffer_data[inc], pointer_x+1, pointer_y, img.color_data[inc]);
+                inc++;
+                pointer_x = pointer_x + 2;
+            }
+            pointer_x = pos_x;
+            pointer_y++;
+        }
     }
 }

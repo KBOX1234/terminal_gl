@@ -55,7 +55,7 @@ struct text_image load_image_to_text(const char* file, char fill);
 struct text_image load_buffer(const char* name);
 
 //draw text image
-void render_text_image(struct text_image img, int pos_x, int pos_y);
+void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_pixel_ratio);
 
 #include "include/image.c"
 

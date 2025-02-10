@@ -21,8 +21,8 @@ int main(){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);
 
-        render_text_image(smile, xi, yi);
-        render_text_image(text_buff2, 10, 10);
+        render_text_image(smile, xi, yi, 1);
+        render_text_image(text_buff2, 10, 10, 0);
         //hide_cursor();
         draw_text("hello world", 20, 20, 0x05);
         
