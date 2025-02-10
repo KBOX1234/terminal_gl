@@ -46,6 +46,8 @@ int main(){
 ```
 This example shows some basic functionality of the library.
 
+You can find a more in-depth tutorial here: [docs/first_project.md](docs/first_project.md)
+
 ### Dependancies
 This library has no dependacies so building is quite simple.
 That said, make sure that your compile can find platform specific libraries that are needed (such as windows.h).
