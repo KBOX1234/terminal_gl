@@ -3,7 +3,7 @@
 ## Our Pledge
 
 We as members, contributors, and leaders pledge to make participation in our
-community a exelent experiance. We also pledge to work in unity (not Unity game engine, 
+community an exelent experiance. We also pledge to work in unity (not Unity game engine, 
 screw Unity Technologies. You can like it if you wan't though (: )
 regardless of personal beleifs. We pledge that we are above virtue signaling 
 (unless its about C) and sharing political views for the sake of clout and that are irrelivent to our goals here.
