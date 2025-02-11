@@ -9,6 +9,8 @@
 
 int main(){
 
+    add_flag(SSH_MODE, 1);
+
     init_window("test program");
 
     int xi = 2;
@@ -32,10 +34,10 @@ int main(){
         scan_input();
 
         if(is_key_pressed('a') == 1){
-            xi--;
+            xi = xi - 2;
         }
         if(is_key_pressed('d') == 1){
-            xi++;
+            xi = xi + 2;
         }
         if(is_key_pressed('w') == 1){
             yi--;
