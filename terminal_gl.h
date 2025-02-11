@@ -19,7 +19,12 @@ struct text_image{
     int y;
 };
 
+struct flag{
+    char command;
+    int number;
+};
 
+void add_flag(char flagC, int value);
 //init the window
 void init_window(char* name);
 

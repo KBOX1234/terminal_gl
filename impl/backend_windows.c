@@ -28,7 +28,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
     WriteConsoleOutput(hConsole, charInfo, bufferSize, zeroCoord, &writeRegion);
     
     free(charInfo);  // Cleanup
-    Sleep(1000 / 60);
+    Sleep(ms_sleep);
 }
 
 void get_terminal_size(int *rows, int *cols) {

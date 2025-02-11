@@ -187,7 +187,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
         y_inc++;
     }
     write(STD_OUT, buffer_expanded, buffer_expanded_inc);
-    usleep(16667);
+    usleep(ms_sleep*1000);
 
 }
 
