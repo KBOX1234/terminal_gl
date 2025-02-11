@@ -79,3 +79,33 @@ void draw_text(const char* text, int x, int y, char color);
 This function can draw text to the screen. It takes 4 arguments. The first is const char* text which is the text that will be drawn. The second and third are int x and int y and they determin the where the string will start being drawn. Last, we have char color which takes a [VGA color code](https://www.fountainware.com/EXPL/vga_color_palettes.htm) for the color.
 
 ### Shape drawing (still in base library)
+Function for drawing a rectangle:
+```c
+void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y, char color);
+```
+This function draws a rectangle on screen. It takes 6 arguments. Char fill takes the charecture you want to fill the rectangle with, int pos_x and int pos_y take the X and Y coords of where it should be drawn, int size_x and int size_y gets the size of the rectangle, and char color gets the [VGA color code](https://www.fountainware.com/EXPL/vga_color_palettes.htm) to draw the rectangle with.
+
+Function for drawing lines:
+```c
+void draw_line(char fill, int pos_x_1, int pos_y_1, int pos_x_2, int pos_y_2, char color);
+```
+This function draws lines and takes 6 arguments. Char fill is for filling the drawn space in with a selected charecture, int pos_x_1 and int pos_y_1 are the starting coordinates of the line, int pos_x_2 and int pos_y_2 are the ending coordinates of the line, and char color takes a [VGA color code](https://www.fountainware.com/EXPL/vga_color_palettes.htm) as its color.
+
+## IMG_LOADING enabled functions
+Function for loading an image from disk:
+```c
+struct text_image load_image_to_text(const char* file, char fill);
+```
+This function takes 2 arguments. Const char* file is the file name that you want to load and char fill is the charecture used to fill the image. This function returns a struct text_image containing the image data.
+
+Function for loading text_images from disk:
+```c
+struct text_image load_buffer(const char* name);
+```
+This function is like the previus function but loads a text file as an image instead. This allows you to have control of the text charectures inside the text_image therfor, only the file name needs to be passed. This function returns a struct text_image.
+
+Function for rendering text_images:
+```c
+void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_pixel_ratio);
+```
+This function renders text_images on screen and takes 4 arguments. Struct text_image_img takes the image to render. It is not a pointer as the struct text_image already has a pointer to the data. Int pos_x and int pos_y are the coordinates that the sprite will be drawn and char normal_pixel_ratio is a bool. When normal_pixel_ratio is set to 1 (true), then it will compensate for the 1:2 text aspect ratio, otherwise it will not compensate.
