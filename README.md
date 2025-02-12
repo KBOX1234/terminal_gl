@@ -76,3 +76,6 @@ int main(){
 ```
 ## Community
 Check out Terminal GL's discord server [here](https://discord.gg/UkDNFYFatQ)
+
+## Libraries that work with TGL
+- [Tgl ui](https://github.com/KBOX1234/tgl_gui) easy gui/debbuging library for tgl.
