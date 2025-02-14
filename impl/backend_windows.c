@@ -1,11 +1,11 @@
 #include <windows.h>
+#include <stdlib.h>  // Added for malloc and free
 
-void *allocate_memory(long size){
+void *allocate_memory(long size) {
     return malloc(size);
 }
 
-char swap_nibbles(char value) {
-    // Shift the lower nibble to the upper nibble and vice versa
+unsigned char swap_nibbles(unsigned char value) {
     return (value >> 4) | (value << 4);
 }
 
@@ -15,19 +15,16 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
     COORD zeroCoord = {0, 0};   // Top-left start
     SMALL_RECT writeRegion = {0, 0, x - 1, y - 1};  // Where to write
     
-    CHAR_INFO* charInfo = (CHAR_INFO*)malloc(x * y * sizeof(CHAR_INFO));
+    CHAR_INFO* charInfo = (CHAR_INFO*)calloc(x * y, sizeof(CHAR_INFO)); // Zero-initialized
     if (!charInfo) return;
 
-    // Fill the CHAR_INFO buffer
     for (int i = 0; i < x * y; i++) {
         charInfo[i].Char.AsciiChar = buffer[i];     // Character
-        charInfo[i].Attributes = (WORD)swap_nibbles(color_data[i]); // Foreground + Background
+        charInfo[i].Attributes = (WORD)swap_nibbles((unsigned char)color_data[i]); // Foreground + Background
     }
 
-    // Write the full buffer at once
     WriteConsoleOutput(hConsole, charInfo, bufferSize, zeroCoord, &writeRegion);
-    
-    free(charInfo);  // Cleanup
+    free(charInfo);
     Sleep(ms_sleep);
 }
 
@@ -39,17 +36,17 @@ void get_terminal_size(int *rows, int *cols) {
         *cols = csbi.srWindow.Right - csbi.srWindow.Left + 1;
         *rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
     } else {
-        *cols = 0; // Error case
+        *cols = 0;
         *rows = 0;
     }
 }
 
-void set_process_name(char *name){
-    SetConsoleTitle(name);
+void set_process_name(char *name) {
+    SetConsoleTitleA(name); // Explicitly use ANSI version
 }
 
-void clear(){
-    //system("clear");
+void clear() {
+    return;
 }
 
 void hide_cursor(){
