@@ -9,7 +9,7 @@
 
 int main(){
 
-    add_flag(SSH_MODE, 1);
+    //add_flag(SSH_MODE, 1);
 
     init_window("test program");
 
