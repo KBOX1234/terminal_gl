@@ -26,7 +26,7 @@ struct flag{
 
 void add_flag(char flagC, int value);
 //init the window
-void init_window(char* name);
+void init_window(const char* name);
 
 //draw a char to the screen
 void draw_char(char c, int x, int y, char color);
