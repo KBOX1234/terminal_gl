@@ -8,7 +8,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data);
 
 void get_terminal_size(int *rows, int *cols);
 
-void set_process_name(char *name);
+void set_process_name(const char *name);
 
 void clear();
 

@@ -53,7 +53,7 @@ void backend_init(){
     get_terminal_size(&window_y, &window_x);
     buffer_expanded_size = window_y*window_x;
     buffer_expanded_size = buffer_expanded_size*16;
-    buffer_expanded = malloc(buffer_expanded_size);
+    buffer_expanded = (char*)malloc(buffer_expanded_size);
 
     set_non_canonical_mode();
 
@@ -136,7 +136,7 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
 }
 
 
-void set_process_name(char *name) {
+void set_process_name(const char *name) {
     prctl(PR_SET_NAME, (unsigned long)name);  // Use the direct syscall for setting process name
 }
 

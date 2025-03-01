@@ -30,7 +30,7 @@ void scan_flags(){
     }
 }
 
-void init_window(char* name){
+void init_window(const char* name){
     backend_init();
     
 
@@ -38,8 +38,8 @@ void init_window(char* name){
 
     scan_flags();
 
-    window_buffer = allocate_memory(window_size_x*window_size_y);
-    color_data = allocate_memory(window_size_x*window_size_y);
+    window_buffer = (char*)allocate_memory(window_size_x*window_size_y);
+    color_data = (char*)allocate_memory(window_size_x*window_size_y);
     
     if (!window_buffer) {
         //printtf("faled to allocate memory\n");
