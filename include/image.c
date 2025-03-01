@@ -64,7 +64,7 @@ struct text_image load_image_to_text(const char* file, char fill){
     unsigned char *img = stbi_load(file, &text_img.x, &text_img.y, &channels, 0);
     text_img.color_data = convert_stbi_to_vga(img, text_img.x, text_img.y, channels);
 
-    text_img.buffer_data = malloc(text_img.x*text_img.y);
+    text_img.buffer_data = (char*)malloc(text_img.x*text_img.y);
 
     int inc = 0;
 
@@ -89,8 +89,8 @@ struct text_image load_buffer(const char *name) {
     rewind(fptr); // Reset file pointer
 
     struct text_image char_img;
-    char_img.buffer_data = malloc(length + 1);
-    char_img.color_data = malloc(length + 1);
+    char_img.buffer_data = (char*)malloc(length + 1);
+    char_img.color_data = (char*)malloc(length + 1);
     if (!char_img.buffer_data || !char_img.color_data) {
         perror("Memory allocation failed");
         fclose(fptr);
