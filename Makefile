@@ -21,7 +21,7 @@ BUILD_DIR = build
 LIB_DIR = lib
 
 # Flags
-CFLAGS = -I$(INC_DIR) -Wall -Wextra -O2
+CFLAGS = -I$(INC_DIR) -Wall -Wextra -O2 -fsanitize=address
 
 # Find all source files except backend ones
 SRC_FILES = $(shell find $(SRC_DIR) -name "*.c" ! -path "*/backend/*")

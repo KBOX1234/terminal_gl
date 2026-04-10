@@ -1,6 +1,8 @@
 #ifndef TERMINAL_GL_H
 #define TERMINAL_GL_H
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -71,7 +73,7 @@ void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_
 //note: for users wanting to create there own backend, you will need to write implementations for each of these functions
 
 
-void *allocate_memory(long size);
+void *allocate_memory(size_t size);
 
 void draw_buffer(char* buffer, int x, int y, char* color_data);
 

@@ -1,7 +1,8 @@
+#include <stddef.h>
 #include <windows.h>
 #include <stdlib.h>  // Added for malloc and free
 
-void *allocate_memory(long size) {
+void *allocate_memory(size_t size) {
     return malloc(size);
 }
 

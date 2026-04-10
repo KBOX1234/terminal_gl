@@ -1,34 +1,43 @@
 #include "../include/terminal_gl.h"
-#include "../include/impl.h"
 
 #include <stdlib.h>
 #include <string.h>
 
 //buffer to write to
-char* window_buffer;
+char* window_buffer = NULL;
 
 //global variables to store the size of the terminal window
 int window_size_x, window_size_y;
 
-char* color_data;
+char* color_data = NULL;
 
 #define SSH_MODE 1
 #define DEFAULT 0
 
-struct flag* flags;
-char flag_inc = 0;
+struct flag* flags = NULL;
+unsigned char flag_inc = 0;
 
 int ms_sleep = 1000 / 60;
 
 
 void add_flag(char flagC, int value){
-    flag_inc++;
-    struct flag* new_flag = (struct flag*)malloc((flag_inc+1)*sizeof(struct flag));
-    memcpy(new_flag, flags, (flag_inc - 1) * sizeof(struct flag));
+    if(flag_inc == 255) return;
+
+    size_t modern_size = (flag_inc + 1) * sizeof(struct flag);
+
+    struct flag* tmp = malloc(modern_size);
+    memset(tmp, 0, modern_size);
+    memcpy(tmp, flags, flag_inc *sizeof(struct flag));
+
     free(flags);
-    flags = new_flag;
-    flags[flag_inc - 1].command = flagC;
-    flags[flag_inc - 1].number = value;
+
+    flags = tmp;
+
+    tmp[flag_inc].command = flagC;
+    tmp[flag_inc].number = value;
+
+    flag_inc++;
+    
 }
 
 void scan_flags(){
@@ -66,19 +75,15 @@ void update(){
 }
 
 void fill_screen(char chare, char color){
-    int i = 0;
     int final = window_size_x*window_size_y;
 
-    while(i < final){
-        window_buffer[i] = chare;
-        color_data[i] = color;
-        i++;
-    }
+    memset(window_buffer, chare, final);
+    memset(color_data, color, final);
 }
 
 void draw_char(char c, int x, int y, char color){
-    if(x < window_size_x && x > 0){
-        if(y < window_size_y && y > 0){
+    if(x < window_size_x && x >= 0){
+        if(y < window_size_y && y >= 0){
             window_buffer[window_size_x*y+x] = c;
             color_data[window_size_x*y+x] = color;
         }
@@ -88,7 +93,6 @@ void draw_char(char c, int x, int y, char color){
 void draw_text(const char* text, int x, int y, char color){
     int inx = x;
     int charinc = 0;
-    int max = x + (x - window_size_x);
     
     while(text[charinc] != '\0'){
         draw_char(text[charinc], inx, y, color);

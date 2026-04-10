@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <unistd.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
@@ -23,7 +24,7 @@ char* buffer_expanded;
 size_t buffer_expanded_size;
 
 // Function to allocate memory
-void *allocate_memory(long size) {
+void *allocate_memory(size_t size) {
     return malloc(size);
 }
 
@@ -160,15 +161,12 @@ void scan_input() {
     release_all_keys();
     while (kbhit()) {
         char ch = getchar();  // Read the pressed key
-        if (ch >= 0 && ch < 256) {
-            key_bord[(unsigned char)ch] = 1;  // Mark key as pressed
-        }
+
+        key_bord[(unsigned char)ch] = 1;  // Mark key as pressed
+
     }
 }
 
 char is_key_pressed(char key) {
-    if (key >= 0 && key < 256) {
         return key_bord[(unsigned char)key];  // Return the state of the requested key
-    }
-    return 0;  // If the key is out of range, return 0 (not pressed)
 }
