@@ -1,3 +1,10 @@
+#ifndef TERMINAL_GL_H
+#define TERMINAL_GL_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //buffer to write to
 extern char* window_buffer;
 
@@ -60,3 +67,30 @@ void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_
 
 #endif
 
+//internal functions for interfacing with each backend
+//note: for users wanting to create there own backend, you will need to write implementations for each of these functions
+
+
+void *allocate_memory(long size);
+
+void draw_buffer(char* buffer, int x, int y, char* color_data);
+
+void get_terminal_size(int *rows, int *cols);
+
+void set_process_name(const char *name);
+
+void clear();
+
+void hide_cursor();
+
+void backend_init();
+
+void scan_input();
+
+char is_key_pressed(char key);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif
