@@ -60,4 +60,3 @@ void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_
 
 #endif
 
-#include "impl.h"
