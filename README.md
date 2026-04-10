@@ -28,7 +28,6 @@ You will also have to include a backend into your project.
 #include <stdio.h>
 #include <stdlib.h>
 #include "terminal_gl.h"
-#include "impl/backend_linux.c"
 
 int main(){
     init_window("test program");
@@ -56,7 +55,7 @@ If you want to use image loading, then you will need stb_image.h and add the com
 
 ### Building example
 ```sh
-gcc example.c -o example -Ipath/to/terminal_gl
+gcc example.c -o example -Ipath/to/terminal_gl -L/Path/To/lib -lterminal_gl
 ```
 ## Backends
 Terminal GL uses backends to interface with the OS as apposed to hard codding support in.
@@ -65,17 +64,7 @@ This allows for terminal gl to be easily ported to other platforms.
 If your platform does not have a backend, it is pretty easy to make one.
 To start, you must check the file impl/impl.h
 It contains defenitions for all the functions that terminal gl needs to run.
-once you have written the functions, you can now include the backend in you project like this:
-```c
-#include "terminal_gl.h"
-#include "impl/your_backend.c"
-
-int main(){
-    return 0;
-}
-```
-## Community
-Check out Terminal GL's discord server [here](https://discord.gg/UkDNFYFatQ)
+once you have written the functions, you can edit the makefile to support your platform and compile the backend.
 
 ## Libraries that work with TGL
 - [Tgl ui](https://github.com/KBOX1234/tgl_gui) easy gui/debbuging library for tgl.
