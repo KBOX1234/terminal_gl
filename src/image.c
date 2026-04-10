@@ -1,4 +1,9 @@
 // Function to find the closest VGA color index
+//
+#define STB_IMAGE_IMPLEMENTATION
+#include "../include/stb_image.h"
+#define IMG_LOADING
+#include "../include/terminal_gl.h"
 
 const uint8_t VGA_PALETTE[16][3] = {
     {0, 0, 0},       // Black

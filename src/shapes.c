@@ -1,3 +1,7 @@
+#include "../include/terminal_gl.h"
+
+#include <stdlib.h>
+
 void draw_rectangle(char fill, int pos_x, int pos_y, int size_x, int size_y, char color){
     int pointer_x = pos_x;
     int pointer_y = pos_y;

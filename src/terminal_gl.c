@@ -1,3 +1,15 @@
+#include "../include/terminal_gl.h"
+#include "../include/impl.h"
+
+#include <stdlib.h>
+#include <string.h>
+
+//buffer to write to
+char* window_buffer;
+
+//global variables to store the size of the terminal window
+int window_size_x, window_size_y;
+
 char* color_data;
 
 #define SSH_MODE 1
@@ -50,7 +62,6 @@ void init_window(const char* name){
 }
 
 void update(){
-    clear();
     draw_buffer(window_buffer, window_size_x, window_size_y, color_data);
 }
 

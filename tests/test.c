@@ -1,25 +1,20 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-//set PATH=%PATH%;c:\\raylib\\w64devkit\\bin
 #define IMG_LOADING
-#define LOAD_CHAR
-#include "terminal_gl.h"
-#include "impl/backend_windows.c"
+
+#include "../include/terminal_gl.h"
 
 
 int main(){
+
+    //add_flag(SSH_MODE, 1);
 
     init_window("test program");
 
     int xi = 2;
     int yi = 2;
     
+
     struct text_image smile = load_image_to_text("test.png", '#');
     struct text_image text_buff2 = load_buffer("test.txt");
-
-
-    
     while(1){
         fill_screen(' ', 0);
         draw_char('&', 1, 1, 0x05);

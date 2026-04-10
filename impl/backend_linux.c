@@ -9,6 +9,7 @@
 #include <sys/prctl.h>  // Include the prctl header
 #include <string.h>
 
+#include "../include/terminal_gl.h"
 
 #define STD_OUT 1
 #define CLEAR_AND_CURSOR_RESET "\033[2J\033[H"
@@ -130,7 +131,8 @@ void draw_buffer(char* buffer, int x, int y, char* color_data) {
         x_inc = 0;
         y_inc++;
     }
-    write(STD_OUT, buffer_expanded, buffer_expanded_inc);
+    write(STDOUT_FILENO, "\033[2J\033[H", 7);
+    write(STDOUT_FILENO, buffer_expanded, buffer_expanded_inc);
     usleep(ms_sleep*1000);
 
 }

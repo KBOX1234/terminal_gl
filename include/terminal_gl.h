@@ -1,11 +1,10 @@
-#include "impl/impl.h"
-
 //buffer to write to
-char* window_buffer;
+extern char* window_buffer;
 
 //global variables to store the size of the terminal window
-int window_size_x, window_size_y;
+extern int window_size_x, window_size_y;
 
+extern int ms_sleep;
 
 //struct for text images (text sprites)
 struct text_image{
@@ -50,9 +49,6 @@ void draw_line(char fill, int pos_x_1, int pos_y_1, int pos_x_2, int pos_y_2, ch
 //NOTE: you will need a file system for loading images from.
 #ifdef IMG_LOADING
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 //load an image into a text_image
 struct text_image load_image_to_text(const char* file, char fill);
 
@@ -62,10 +58,6 @@ struct text_image load_buffer(const char* name);
 //draw text image
 void render_text_image(struct text_image img, int pos_x, int pos_y, char normal_pixel_ratio);
 
-#include "include/image.c"
-
 #endif
 
-#include "terminal_gl.c"
-#include "include/shapes.c"
-
+#include "impl.h"
